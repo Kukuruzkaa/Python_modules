@@ -1,47 +1,42 @@
-import sys
 import string
+import sys
 
 def text_analyzer(text=None):
+
+    '''This function counts the number of upper characters, lower characters,
+        punctuation and spaces in a given text.'''
+    space_sum = 0
+    upper_sum = 0
+    lower_sum = 0
+    punctuation_sum = 0
     if text is None:
-        print("What is the text to analyze?")
-        text = input()
-    if not isinstance(text, str):
-        print("Error: not a string")
+        text = input("what is the text to analyze?\n ")
+    if type(text) is str:
+        for char in text:
+            if char.isupper():
+                upper_sum += 1
+            elif char.islower():
+                lower_sum += 1
+            elif char in string.punctuation:
+                punctuation_sum += 1
+        space_sum = text.count(' ')
+        text = set(text)
+        print("The text contains {} character(s):".format(str(len(text) - space_sum)))
+        print("- {} upper letter(s)".format(str(upper_sum)))
+        print("- {} lower letter(s)".format(str(lower_sum)))
+        print("- {} punctuation mark(s)".format(str(punctuation_sum)))
+        print("- {} space(s)".format(str(space_sum)))
+    else:
+        print ("AssertionError: argument is not a string")
 
-# $> python3
-# >>> from count import text_analyzer
-# >>> text_analyzer("Python 2.0, released 2000, introduced
-# features like List comprehensions and a garbage collection
-# system capable of collecting reference cycles.")
-# The text contains 143 character(s):
-# - 2 upper letter(s)
-# - 113 lower letter(s)
-# - 4 punctuation mark(s)
-# - 18 space(s)
+def main():
+    if (len(sys.argv) < 2):
+        text_analyzer()
+    elif (len(sys.argv) == 2):
+        text_analyzer(sys.argv[1])
+    else:
+        print("AssertionError: more than one argument are provided")
 
-# >>> text_analyzer("Python is an interpreted, high-level,
-# general-purpose programming language. Created by Guido van
-# Rossum and first released in 1991, Python's design philosophy
-# emphasizes code readability with its notable use of significant
-# whitespace.")
-# The text contains 234 character(s):
-# - 5 upper letter(s)
-# - 187 lower letter(s)
-# - 8 punctuation mark(s)
-# - 30 space(s)
+if __name__ == "__main__":
+    main()
 
-# >>> text_analyzer()
-# What is the text to analyze?
-# >> Hello World!
-# The text contains 8 character(s):
-# - 2 upper letter(s)
-# - 8 lower letter(s)
-# - 1 punctuation mark(s)
-# - 1 space(s)
-
-# >>> text_analyzer(42)
-# AssertionError: argument is not a string
-
-# >>> print(text_analyzer.__doc__)
-# This function counts the number of upper characters, lower characters,
-# punctuation and spaces in a given text.
