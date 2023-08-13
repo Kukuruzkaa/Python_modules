@@ -2,11 +2,11 @@ import string
 import sys
 
 def filter(line, n):
-    list = line.split()
+    cleaned_line ="".join(char for char in line if char not in string.punctuation)
+    list = cleaned_line.split()
     new_list = []
     for word in list:
-        letters = sum(1 for char in word if char not in string.punctuation)
-        if letters > int(n):
+        if len(word) > int(n):
             new_list.append(word)
     return new_list   
     
