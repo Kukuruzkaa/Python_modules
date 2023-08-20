@@ -1,4 +1,4 @@
-pip list or conda list // list of all installed packages and their versions 
+conda list or pip list // list of all installed packages and their versions 
 pip show numpy
 pip uninstall numpy
 pip install numpy

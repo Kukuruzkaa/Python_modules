@@ -1,12 +1,18 @@
-kata = {
-'Python': 'Guido van Rossum',
+kata = {'Python': 'Guido van Rossum',
 'Ruby': 'Yukihiro Matsumoto',
-'PHP': 'Rasmus Lerdorf',
-}
+'PHP': 'Rasmus Lerdorf',}
+
+bool(kata)
+False
+not kata
+True
 
 def main():
-   for language, name in kata.items():
-       print(f'{language} was created by {name}')
+    if not kata:
+        print ("Empty dictionnary")
+    else:
+        for language, name in kata.items():
+            print(f'{language} was created by {name}')
 
 if __name__ == "__main__":
     main()

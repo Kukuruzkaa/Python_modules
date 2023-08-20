@@ -20,12 +20,12 @@ def ft_progress(list):
         c_bar = (f"ETA:{eta:.2f}s [{int(percentage):3d}%][{'=' * progress + '>':{length}s}] {index + 1:4d}/{total} | elapsed time {elapsed_time:.2f}s")
         print(c_bar, end="\r")
       
-if __name__ == "__main__":
+# if __name__ == "__main__":
     
-        listy = range(100)
-        ret = 0
-        for elem in ft_progress(listy):
-            ret += (elem + 3) % 5
-            time.sleep(0.01)
-        print()
-        print(ret)
+#         listy = range(0, -100, -1)
+#         ret = 0
+#         for elem in ft_progress(listy):
+#             ret += (elem + 3) % 5
+#             time.sleep(0.01)
+#         print()
+#         print(ret)

@@ -26,19 +26,24 @@ def operations(A, B):
         try:
             num = quotient(x,y)
             formatted_number = "{:.4f}".format(num)
-            print("Quotient:   {}".format(str(formatted_number) + "..."))
+            if len(formatted_number) < len(str(num)):
+                print("Quotient:   {}".format(str(formatted_number) + "..."))
+            else:
+                print("Quotient:  ", str(num))
         except ZeroDivisionError:
-            print("Quotient:    ERROR (division by zero)")
+            print("Quotient:   ERROR (division by zero)")
         try:
             print("Reminder:   {}".format(str(reminder(x,y))))
         except ZeroDivisionError:
-            print("Reminder:    ERROR (modulo by zero)")
+            print("Reminder:   ERROR (modulo by zero)")
     except ValueError:
         print("AssertionError: only integers")
 
 def main():
     if (len(sys.argv) == 1):
         pass
+    elif (len(sys.argv) == 2):
+        print("AssertionError: not enough arguments provided")
     elif (len(sys.argv) != 3):
         print("AssertionError: too many arguments")
     else:
