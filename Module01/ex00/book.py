@@ -14,7 +14,7 @@ class Book:
         """Prints a recipe with the name \texttt{name} and returns the instance"""
         for recipe_type in self.recipes_list.keys():
             for recipe in self.recipes_list[recipe_type]:
-                if recipe == name:
+                if recipe.name == name:
                     return recipe
         return None      
                    
@@ -30,17 +30,16 @@ class Book:
         """Add a recipe to the book and update last_update"""
         if type(recipe) is Recipe:
             self.recipes_list[recipe.recipe_type].append(recipe)
-            print(f"You added the recipe of {recipe.name}")
             self.last_update = datetime.now()
         else:
             print("Invalid recipe type")
     
-    
+
     def __str__(self):
         return f"Cookbook: {self.name}\n" \
                 f"Last Update: {self.last_update}\n" \
                 f"Creation Date: {self.creation_date}\n" \
                 f"Recipes: {len(self.recipes_list['starter'])} starters, " \
                 f"{len(self.recipes_list['lunch'])} lunch recipes, " \
-                f"{len(self.recipes_list['dessert'])} dessert recipes"
+                f"{len(self.recipes_list['dessert'])} dessert recipes\n"
 
