@@ -1,7 +1,7 @@
 from book import Book
 from recipe import Recipe
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore
 
 colorama.init(autoreset=True)
 
@@ -84,5 +84,3 @@ if __name__ == "__main__":
     types = my_cookbook.get_recipes_by_types("starter")
     for type in types:
         print(type)
-
-

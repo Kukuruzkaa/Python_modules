@@ -43,15 +43,4 @@ class Recipe:
               f"Recipe type: {self.recipe_type}\n"
         return txt
 
-# if __name__ == "__main__":
-#     tourte = Recipe(
-#         name="",
-#         cooking_lvl=4,
-#         cooking_time=60,
-#         ingredients=["pastry dough", "meat", "vegetables", "spices"],
-#         description="A classic savory pie with a flaky pastry crust.",
-#         recipe_type="starter"
-#     )
-#     to_print = str(tourte)
-#     print(to_print)
 
