@@ -114,6 +114,8 @@ class Vector:
         """True division of the vector by a scalar.""" 
         if not isinstance(scalar, (int, float)):
             raise ValueError('Can only devide Vector by a scalar')
+        if scalar == 0:
+            raise ZeroDivisionError
         else:
             res = []
             for col in self.values:
