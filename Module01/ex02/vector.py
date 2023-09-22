@@ -22,7 +22,7 @@ class Vector:
     
     @staticmethod
     def is_list(values):
-        if len(values) > 0 and isinstance(values, list) \
+        if isinstance(values[0], list) and len(values) > 0  \
             and len(values[0]) > 0 and all(isinstance(item, (list, float)) for item in values):
             return True
         return False
@@ -48,13 +48,14 @@ class Vector:
             raise ValueError("Wrong vector types.")
         else:
             res = 0
-            tuple_pairs = zip(self, other)
+            tuple_pairs = zip(self.values, other.values)
             for el1, el2 in tuple_pairs:
                 pairs = zip(el1, el2)
                 for x, y in pairs:
                     res += x * y
-                    return res
-                
+            return res
+            
+
     def __add__(self, other):
         """Vector addition."""
         if not isinstance(other, Vector) and self.shape == other.shape:
@@ -115,7 +116,7 @@ class Vector:
         if not isinstance(scalar, (int, float)):
             raise ValueError('Can only devide Vector by a scalar')
         if scalar == 0:
-            raise ZeroDivisionError
+            raise ZeroDivisionError('division by zero')
         else:
             res = []
             for col in self.values:
@@ -134,13 +135,16 @@ class Vector:
         return self.__str__(self)
 
     def T(self):
-        if self.shape == 1:
-            new_col = []
+        new_col = []
+        if self.shape[0] == 1:
             for el in self.values[0]:
                 new_col.append([el])
-            return Vector(new_col)
+        else:
+            col = []
+            for el in self.values:
+                col.append(el[0])
+            new_col.append(col)
+        return Vector(new_col)
                 
-                
-                
-    
+            
 
