@@ -147,4 +147,3 @@ class Vector:
         return Vector(new_col)
                 
             
-
