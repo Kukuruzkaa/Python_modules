@@ -1,18 +1,22 @@
 
 class Vector:
     def __init__(self, values):
-        if Vector.is_list(values):
-            self.values = values
+        if isinstance(values,list):
+            if Vector.is_list(values):
+                self.values = values
+            else:
+                raise ValueError
         elif isinstance(values, int):
             if values < 0:
                 raise ValueError
             self.values = []
             for i in range(values):
-                self.values.append([float[i],])
-        elif Vector.is_tuple(values):
-            self.values = []
-            for i in range(values[0], values[1]):
-                self.values.append([float[i],])
+                self.values.append([float(i),])
+        elif isinstance(values,tuple):
+            if Vector.is_tuple(values):
+                self.values = []
+                for i in range(values[0], values[1]):
+                    self.values.append([float(i),])
         else:
             raise ValueError
         self.shape = (len(self.values), len(self.values[0]))
@@ -31,7 +35,7 @@ class Vector:
     def is_tuple(values):
         if len(values) == 2:
             a, b = values
-            if not isinstance(a, int) or not isinstance(b, int) or a < b:
+            if not isinstance(a, int) or not isinstance(b, int) or a > b:
                 raise ValueError("Invalid range")
             return True
         return False
@@ -44,7 +48,7 @@ class Vector:
 
 
     def dot(self, other):
-        if not isinstance(other, Vector) and self.shape == other.shape:
+        if not isinstance(other, Vector) and self.shape != other.shape:
             raise ValueError("Wrong vector types.")
         else:
             res = 0
@@ -55,14 +59,25 @@ class Vector:
                     res += x * y
             return res
             
-
+    def T(self):
+            new_col = []
+            if self.shape[0] == 1:
+                for el in self.values[0]:
+                    new_col.append([el])
+            else:
+                col = []
+                for el in self.values:
+                    col.append(el[0])
+                new_col.append(col)
+            return Vector(new_col)
+                
     def __add__(self, other):
         """Vector addition."""
-        if not isinstance(other, Vector) and self.shape == other.shape:
+        if not isinstance(other, Vector) and self.shape != other.shape:
             raise ValueError("Wrong vector types.")
         else:
             res = []
-            tuple_pairs = zip(self, other)
+            tuple_pairs = zip(self.values, other.values)
             for el1, el2 in tuple_pairs:
                 pairs = zip(el1, el2)
                 new_list = [x + y for x, y in pairs]
@@ -79,7 +94,7 @@ class Vector:
             raise ValueError("Wrong vector types.")
         else:
             res = []
-            tuple_pairs = zip(self, other)
+            tuple_pairs = zip(self.values, other.values)
             for el1, el2 in tuple_pairs:
                 pairs = zip(el1, el2)
                 new_list = [x - y for x, y in pairs]
@@ -95,7 +110,7 @@ class Vector:
                     
     def __mul__(self, scalar):
         """Multiplication of a vector by a scalar."""
-        if not isinstance(scalar, int) or isinstance(scalar, float):
+        if not isinstance(scalar, (int, float)):
             raise ValueError('Can only multiply Vector by a scalar')  
         else:
             res = []
@@ -133,17 +148,3 @@ class Vector:
     def __repr__(self):
         """Unambiguous string representation of the vector."""
         return self.__str__(self)
-
-    def T(self):
-        new_col = []
-        if self.shape[0] == 1:
-            for el in self.values[0]:
-                new_col.append([el])
-        else:
-            col = []
-            for el in self.values:
-                col.append(el[0])
-            new_col.append(col)
-        return Vector(new_col)
-                
-            
