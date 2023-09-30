@@ -5,10 +5,10 @@ class Vector:
             if Vector.is_list(values):
                 self.values = values
             else:
-                raise ValueError
+                raise ValueError("Wrong vector type.")
         elif isinstance(values, int):
             if values < 0:
-                raise ValueError
+                raise ValueError("Wrong vector type.")
             self.values = []
             for i in range(values):
                 self.values.append([float(i),])
@@ -18,10 +18,10 @@ class Vector:
                 for i in range(values[0], values[1]):
                     self.values.append([float(i),])
         else:
-            raise ValueError
+            raise ValueError("Wrong vector type.")
         self.shape = (len(self.values), len(self.values[0]))
         if not Vector.is_valid_shape(self.shape):
-            raise ValueError
+            raise ValueError("Invalid vector shape.")
         
     
     @staticmethod
@@ -35,7 +35,7 @@ class Vector:
     def is_tuple(values):
         if len(values) == 2:
             a, b = values
-            if not isinstance(a, int) or not isinstance(b, int) or a > b:
+            if not isinstance(a, int) or not isinstance(b, int) or a >= b:
                 raise ValueError("Invalid range")
             return True
         return False
@@ -49,7 +49,7 @@ class Vector:
 
     def dot(self, other):
         if not isinstance(other, Vector) and self.shape != other.shape:
-            raise ValueError("Wrong vector types.")
+            raise ValueError("Wrong vector type.")
         else:
             res = 0
             tuple_pairs = zip(self.values, other.values)
@@ -74,7 +74,7 @@ class Vector:
     def __add__(self, other):
         """Vector addition."""
         if not isinstance(other, Vector) and self.shape != other.shape:
-            raise ValueError("Wrong vector types.")
+            raise ValueError("Wrong vector type.")
         else:
             res = []
             tuple_pairs = zip(self.values, other.values)
@@ -91,7 +91,7 @@ class Vector:
     def __sub__(self, other):
         """Vector subtraction."""
         if not isinstance(other, Vector) and self.shape == other.shape:
-            raise ValueError("Wrong vector types.")
+            raise ValueError("Wrong vector type.")
         else:
             res = []
             tuple_pairs = zip(self.values, other.values)
