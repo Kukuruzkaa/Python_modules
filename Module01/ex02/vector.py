@@ -27,7 +27,7 @@ class Vector:
     @staticmethod
     def is_list(values):
         if isinstance(values[0], list) and len(values) > 0  \
-            and len(values[0]) > 0 and all(isinstance(item, (list, float)) for item in values):
+            and len(values[0]) > 0 and all(isinstance(item, (list, float)) for item in values[0]):
             return True
         return False
     
@@ -48,7 +48,7 @@ class Vector:
 
 
     def dot(self, other):
-        if not isinstance(other, Vector) and self.shape != other.shape:
+        if not isinstance(other, Vector) or self.shape != other.shape:
             raise ValueError("Wrong vector type.")
         else:
             res = 0
@@ -73,7 +73,7 @@ class Vector:
                 
     def __add__(self, other):
         """Vector addition."""
-        if not isinstance(other, Vector) and self.shape != other.shape:
+        if not isinstance(other, Vector) or self.shape != other.shape:
             raise ValueError("Wrong vector type.")
         else:
             res = []
@@ -90,7 +90,7 @@ class Vector:
         
     def __sub__(self, other):
         """Vector subtraction."""
-        if not isinstance(other, Vector) and self.shape == other.shape:
+        if not isinstance(other, Vector) or self.shape == other.shape:
             raise ValueError("Wrong vector type.")
         else:
             res = []
