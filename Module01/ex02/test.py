@@ -24,7 +24,6 @@ if __name__ == "__main__":
     except ValueError:
         print(f"{Fore.RED}ValueError: invalid range - [5 > 2]\n")
     
-    
     print(f"{Fore.GREEN}Row vector: ")
     v1 = Vector([[0.0, 1.0, 2.0, 3.0]])
     print("V1 =", v1.values)
@@ -35,7 +34,7 @@ if __name__ == "__main__":
     print()
     
     print(f"{Fore.MAGENTA}Vector methods: \n")
-    print(f"{Fore.BLUE}__mull__/__sub__:")
+    print(f"{Fore.BLUE}__mul__/__div__:")
     v3 = v1 * 5
     print("V3 =", v3.values)
     print("V3 shape =", v3.shape)
@@ -104,24 +103,48 @@ if __name__ == "__main__":
     try:
         print("dot V5 & V7 =", v5.dot(v7))
     except:
-        print(f"{Fore.RED}ValueError: wrong vector type - dot V5 & V7 different shape")
+        print(f"{Fore.RED}ValueError: wrong vector type - dot V5 & V7 different shape\n")
         
-
- 
+    print(f"{Fore.BLUE}__add__/__sub__:")
     
-
+    vec = Vector(4)
+    print("vec =", vec)
+    vec2 = Vector([[1.0], [1.0], [1.0], [1.0]])
+    print("vec2 =", vec2)
+    print("sum of vec + vec2 =", (vec + vec2).values)
     
+    try:
+        vec + Vector([[0.1, 0.2, 0.3, 0.4]])
+    except:
+        print(f"{Fore.RED}ValueError: wrong vector type - different shape")
+    try:
+        vec + "text"
+    except:
+        print(f"{Fore.RED}ValueError: wrong vector type - text")
+    try:
+        vec2 + None
+    except:
+        print(f"{Fore.RED}ValueError: wrong vector type - None\n")
 
+    print((vec - vec2).values != (vec2 - vec).values)
+    print("substruction of vec - vec2 =", (vec - vec2).values)
+    print("substruction of vec2 - vec =", (vec2 - vec).values)
 
-    # v2 = Vector([[1.0], [1.0], [1.0], [1.0]])
-    # print(v2)
-    # print((v + v2).values)
-    
-    # v + Vector([0.0, 0.0, 0.0, 0.0])
-    # v + "hello"
-    # v + None
-    # print((v - v2).values != (v2 - v).values)
-  
+    vec3 = Vector([[1.1, 2.2, 3.3, 4.4]])
+    try:
+        vec2 - vec3
+    except:
+        print(f"{Fore.RED}ValueError: wrong vector type - different shape")
 
+    try:
+        vec3 - "text"
+    except:
+        print(f"{Fore.RED}ValueError: wrong vector type - text")
+    try:
+        vec3 - None
+    except:
+        print(f"{Fore.RED}ValueError: wrong vector type - None\n")
 
-
+    print(f"{Fore.BLUE}__str__/__repr__:")
+    print("str(vec2):", str(vec2))
+    print("repr(vec3):", repr(vec3))

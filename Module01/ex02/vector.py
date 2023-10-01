@@ -90,7 +90,7 @@ class Vector:
         
     def __sub__(self, other):
         """Vector subtraction."""
-        if not isinstance(other, Vector) or self.shape == other.shape:
+        if not isinstance(other, Vector) or self.shape != other.shape:
             raise ValueError("Wrong vector type.")
         else:
             res = []
@@ -147,4 +147,4 @@ class Vector:
             
     def __repr__(self):
         """Unambiguous string representation of the vector."""
-        return self.__str__(self)
+        return self.__str__()
