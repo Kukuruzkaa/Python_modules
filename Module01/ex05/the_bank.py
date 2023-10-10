@@ -109,27 +109,28 @@ class Bank(object):
         if not to_fix:
             return False
         accnt = dir(to_fix)
-        if not hasattr(to_fix, 'zip'):
-                setattr(to_fix, 'zip', '000-000')
-        elif not hasattr(to_fix, 'addr'):
-                setattr(to_fix, 'addr', 'Paris, 75013')
-        if not hasattr(to_fix, 'name'):
-            setattr(to_fix, 'name', 'Bob')
-        elif not hasattr(to_fix, 'id') or not isinstance(to_fix.id, int):
-            setattr(to_fix, 'id', Account.ID_COUT)
-            Account.ID_COUNT += 1
-        elif not hasattr(to_fix, 'value') or not isinstance(to_fix.value, (int, float)):
-            setattr(to_fix, 'value', 0)
-        for key in accnt:
-            if key.startswith('b'):
-                b_attr = key
-                delattr(to_fix, b_attr)
-        if len(accnt) % 2 == 0:
-            if not hasattr(to_fix, 'extra'):
-                setattr(to_fix, 'extra', 'optional')
-            else:
-                setattr(to_fix, 'extra2', 'optional too')
-        return True
+        while self.is_corrupted == True:
+            if not hasattr(to_fix, 'zip'):
+                    setattr(to_fix, 'zip', '000-000')
+            elif not hasattr(to_fix, 'addr'):
+                    setattr(to_fix, 'addr', 'Paris, 75013')
+            if not hasattr(to_fix, 'name'):
+                setattr(to_fix, 'name', 'Bob')
+            elif not hasattr(to_fix, 'id') or not isinstance(to_fix.id, int):
+                setattr(to_fix, 'id', Account.ID_COUT)
+                Account.ID_COUNT += 1
+            elif not hasattr(to_fix, 'value') or not isinstance(to_fix.value, (int, float)):
+                setattr(to_fix, 'value', 0)
+            for key in accnt:
+                if key.startswith('b'):
+                    b_attr = key
+                    delattr(to_fix, b_attr)
+            if len(accnt) % 2 == 0:
+                if not hasattr(to_fix, 'extra'):
+                    setattr(to_fix, 'extra', 'optional')
+                else:
+                    setattr(to_fix, 'extra2', 'optional too')
+            return True
         
 if __name__ == "__main__":
         
