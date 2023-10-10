@@ -50,31 +50,23 @@ class Bank(object):
         """
         o_account = None
         d_account = None
-        for account in self.accounts:
-            if account.name == dest:
-                d_account = account
-            elif account.name == origin:
-                o_account = dest
-        if not d_account:
-            print('no')
-        if not o_account or not d_account \
-            or not isinstance(amount, (int, float)) \
-            or amount > o_account.value:
-                print('la')
+        if isinstance(origin, str) and isinstance(dest, str) \
+            and isinstance(amount, (int, float)) and amount > 0:
+            for account in self.accounts:
+                if account.name == origin:
+                    o_account = account
+                if account.name == dest:
+                    d_account = account
+            if not o_account or not d_account:
                 return False
-        # if self.is_corrupted(origin) or self.is_corrupted(dest):
-        #     print('la')
-        #     return False
-        print(o_account.value)
-        print(d_account.value)
-        
-        if origin != dest:
-            o_account.transfer(-amount)
-            d_account.transfer(amount)
-        return True
+            if self.is_corrupted(o_account) or self.is_corrupted(d_account) or amount > o_account.value:
+                return False 
+            if origin != dest:
+                o_account.transfer(-amount)
+                d_account.transfer(amount)
+            return True
             
-   
-        
+          
     @staticmethod
     def is_corrupted(account):
         accnt = dir(account)
@@ -198,12 +190,13 @@ if __name__ == "__main__":
     )
 
     bank.add(jhon)
+    bank.add(jane)
 
     print("testing a valid transfer")
     print('1', jhon.value)
     print('2', jane.value)
     
-    bank.transfer("Jhon", "Jane", 500)
+    bank.transfer("Jhon", "Jane", 1001)
 
     print('1', jhon.value)
     print('2', jane.value)
