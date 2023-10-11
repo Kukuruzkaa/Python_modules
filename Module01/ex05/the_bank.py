@@ -80,6 +80,9 @@ class Bank(object):
         if not hasattr(account, 'zip'):
             print("Missing attribute zip")
             return True
+        if not hasattr(account, 'addr'):
+            print("Missing attribute addr")
+            return True
         elif not hasattr(account, 'name') or not hasattr(account, 'id') or not hasattr(account, 'value'):
             print("Missing attribute name id or value")
             return True
@@ -109,32 +112,34 @@ class Bank(object):
         if not to_fix:
             return False
         accnt = dir(to_fix)
-        while self.is_corrupted == True:
-            if not hasattr(to_fix, 'zip'):
-                    setattr(to_fix, 'zip', '000-000')
-            elif not hasattr(to_fix, 'addr'):
-                    setattr(to_fix, 'addr', 'Paris, 75013')
-            if not hasattr(to_fix, 'name'):
-                setattr(to_fix, 'name', 'Bob')
-            elif not hasattr(to_fix, 'id') or not isinstance(to_fix.id, int):
-                setattr(to_fix, 'id', Account.ID_COUT)
-                Account.ID_COUNT += 1
-            elif not hasattr(to_fix, 'value') or not isinstance(to_fix.value, (int, float)):
-                setattr(to_fix, 'value', 0)
-            for key in accnt:
-                if key.startswith('b'):
-                    b_attr = key
-                    delattr(to_fix, b_attr)
-            if len(accnt) % 2 == 0:
-                if not hasattr(to_fix, 'extra'):
-                    setattr(to_fix, 'extra', 'optional')
-                else:
-                    setattr(to_fix, 'extra2', 'optional too')
-            return True
+        if not hasattr(to_fix, 'zip'):
+                setattr(to_fix, 'zip', '000-000')
+        elif not hasattr(to_fix, 'addr'):
+                setattr(to_fix, 'addr', 'Paris, 75013')
+        if not hasattr(to_fix, 'name'):
+            setattr(to_fix, 'name', 'Bob')
+        elif not hasattr(to_fix, 'id') or not isinstance(to_fix.id, int):
+            setattr(to_fix, 'id', Account.ID_COUT)
+            Account.ID_COUNT += 1
+        elif not hasattr(to_fix, 'value') or not isinstance(to_fix.value, (int, float)):
+            setattr(to_fix, 'value', 0)
+        for key in accnt:
+            if key.startswith('b'):
+                b_attr = key
+                delattr(to_fix, b_attr)
+        accnt = dir(to_fix)
+        if len(accnt) % 2 == 0:
+            if not hasattr(to_fix, 'extra'):
+                setattr(to_fix, 'extra', 'optional')
+            elif not hasattr(to_fix, 'extra2', 'optional too'):
+                setattr(to_fix, 'extra2', 'optional too')
+            else:
+                delattr(to_fix, 'extra2')
+        return True
         
-if __name__ == "__main__":
+# if __name__ == "__main__":
         
-    bank = Bank()
+#     bank = Bank()
 #     john = Account(
 #     'William John',
 #     zip='100-064',
@@ -176,28 +181,25 @@ if __name__ == "__main__":
     # # print(bank.fix_account('William John'))
   
    
-    jane = Account(
-        'Jane',
-        zip='911-745',
-        value=1000.0,
-        ref='1044618427ff2782f0bbece0abd05f31')
-    
+#     bank.add(
+#     Account(
+#         'Jane',
+#         zip='911-745',
+#         value=1000.0,
+#         ref='1044618427ff2782f0bbece0abd05f31'
+#     )
+# )
 
-    jhon = Account(
-        'Jhon',
-        zip='911-745',
-        value=1000.0,
-        ref='1044618427ff2782f0bbece0abd05f31'
-    )
+#     jhon = Account(
+#         'Jhon',
+#         zip='911-745',
+#         value=1000.0,
+#         ref='1044618427ff2782f0bbece0abd05f31'
+#     )
 
-    bank.add(jhon)
-    bank.add(jane)
+#     bank.add(jhon)
 
-    print("testing a valid transfer")
-    print('1', jhon.value)
-    print('2', jane.value)
-    
-    bank.transfer("Jhon", "Jane", 1001)
-
-    print('1', jhon.value)
-    print('2', jane.value)
+#     print("testing a valid transfer")
+#     print(jhon.value)
+#     bank.transfer("Jane", "Jhon", 500)
+#     print(jhon.value)
