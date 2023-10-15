@@ -16,6 +16,7 @@ class Book:
             for recipe in self.recipes_list[recipe_type]:
                 if recipe.name == name:
                     return recipe
+        print('The recipe does not exist')
         return None      
                    
     def get_recipes_by_types(self, recipe_type):
