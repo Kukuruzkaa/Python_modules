@@ -13,7 +13,7 @@ def my_random(list):
 def generator(text, sep=" ", option=None):
     '''Splits the text according to sep value and yield the substrings. 
         option precise if a action is performed to the substrings before it is yielded.'''
-    if not isinstance(text, str) or sep!= " ":
+    if not isinstance(text, str) or not isinstance(sep, str):
         yield "Argument error"
     wordset = text.split(sep)
     if option == "shuffle":
@@ -46,3 +46,4 @@ if __name__ == "__main__":
     text2 = "Lorem Ipsum Lorem Ipsum"
     for word in generator(text2, sep=" ", option="unique"):
         print(word)
+    
