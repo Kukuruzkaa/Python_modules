@@ -31,7 +31,6 @@ class Bank(object):
         """
         # test if new_account is an Account() instance and if
         # it can be appended to the attribute accounts
-        # ... Your code ...
         if isinstance(new_account, Account):
             for i in self.accounts:
                 if i.name == new_account.name:
@@ -59,8 +58,11 @@ class Bank(object):
                     d_account = account
             if not o_account or not d_account:
                 return False
-            if self.is_corrupted(o_account) or self.is_corrupted(d_account) or amount > o_account.value:
-                return False 
+            if self.is_corrupted(o_account) or self.is_corrupted(d_account):
+                return False
+            if  amount > o_account.value:
+                print('not enough funds to make a transfer')
+                return False
             if origin != dest:
                 o_account.transfer(-amount)
                 d_account.transfer(amount)
@@ -71,32 +73,35 @@ class Bank(object):
     def is_corrupted(account):
         accnt = dir(account)
         if len(accnt) % 2 == 0:
-            print("Account has en even number of attributes")
+            # print("Account has en even number of attributes")
             return True
         for key in accnt:
             if key.startswith('b'):
-                print("An attribute starting with b")
+                # print("An attribute starting with b")
                 return True
-        if not hasattr(account, 'zip'):
-            print("Missing attribute zip")
+        if not (hasattr(account, 'zip') or not hasattr(account, 'addr')):
+            # print("Missing attribute zip or addr")
             return True
-        if not hasattr(account, 'addr'):
-            print("Missing attribute addr")
+        if not hasattr(account, 'name'):
+            # print("Missing attribute name")
             return True
-        elif not hasattr(account, 'name') or not hasattr(account, 'id') or not hasattr(account, 'value'):
-            print("Missing attribute name id or value")
+        if not hasattr(account, 'id'):
+            # print("Missing attribute id")
             return True
-        elif not isinstance(account.name, str):
-            print("Account name is not a string")
+        if not hasattr(account, 'value'):
+            # print("Missing attribute value")
             return True
-        elif not isinstance(account.id, int):
-            print("Account id is not a number")
+        if not isinstance(account.name, str):
+            # print("Account name is not a string")
             return True
-        elif not isinstance(account.value, (int, float)):
-            print("Account value is no a number")
+        if not isinstance(account.id, int):
+            # print("Account id is not a number")
+            return True
+        if not isinstance(account.value, (int, float)):
+            # print("Account value is no a number")
             return True
         return False    
-    
+
     def fix_account(self, name):
         """ fix account associated to name if corrupted
         @name: str(name) of the account
@@ -107,7 +112,7 @@ class Bank(object):
             for account in self.accounts:
                 if account.name == name:
                     to_fix = account
-        elif type(name) == Account:
+        if isinstance(name, Account):
             to_fix = name
         if not to_fix:
             return False
@@ -137,69 +142,30 @@ class Bank(object):
                 delattr(to_fix, 'extra2')
         return True
         
-# if __name__ == "__main__":
-        
-#     bank = Bank()
-#     john = Account(
-#     'William John',
-#     zip='100-064',
-#     brother="heyhey",
-#     value=6460.0,
-#     ref='58ba2b9954cd278eda8a84147ca73c87',
-#     info=None,
-#     other='This is the vice president of the corporation',
-#     lol = "hihi"
-# )
+if __name__ == "__main__":
     
-#     john = Account(
-#     'William John',
-#     zip='100-064',
-#     rother="heyhey",
-#     value=6460.0,
-#     ref='58ba2b9954cd278eda8a84147ca73c87',
-#     info=None,
-#     other='This is the vice president of the corporation',
-# )
+    bank = Bank()
+    bank.add(
+        Account(
+            'Jane',
+            zip='911-745',
+            value=1000.0,
+            ref='1044618427ff2782f0bbece0abd05f31'
+        )
+    )
 
-    # john = Account(
-    #     'William John',
-    #     zip='100-064',
-    #     rother="heyhey",
-    #     ref='58ba2b9954cd278eda8a84147ca73c87',
-    #     info=None,
-    #     other='This is the vice president of the corporation',
-    #     lol = "lolilol",
-    # )
-    
-    # acc1 = bank.add(john)
-    # print(acc1)
-    # print(john.name)
-    # print(john.zip)
-    # print(john.value)
-    # print(bank.is_corrupted(john))
-    # # print(bank.fix_account(john))
-    # # print(bank.fix_account('William John'))
-  
-   
-#     bank.add(
-#     Account(
-#         'Jane',
-#         zip='911-745',
-#         value=1000.0,
-#         ref='1044618427ff2782f0bbece0abd05f31'
-#     )
-# )
+    jhon = Account(
+        'Jhon',
+        zip='911-745',
+        value=1000.0,
+        ref='1044618427ff2782f0bbece0abd05f31'
+    )
 
-#     jhon = Account(
-#         'Jhon',
-#         zip='911-745',
-#         value=1000.0,
-#         ref='1044618427ff2782f0bbece0abd05f31'
-#     )
+    bank.add(jhon)
 
-#     bank.add(jhon)
-
-#     print("testing a valid transfer")
-#     print(jhon.value)
-#     bank.transfer("Jane", "Jhon", 500)
-#     print(jhon.value)
+    print("testing a valid transfer")
+    print(jhon.value)
+    bank.transfer("Jane", "Jhon", 500)
+    print(jhon.value)
+    bank.transfer("Jane", "Jhon", 1000)
+    print(jhon.value)
