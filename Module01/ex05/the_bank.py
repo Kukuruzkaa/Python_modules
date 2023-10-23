@@ -73,32 +73,32 @@ class Bank(object):
     def is_corrupted(account):
         accnt = dir(account)
         if len(accnt) % 2 == 0:
-            print("Account has en even number of attributes")
+            # print("Account has en even number of attributes")
             return True
         for key in accnt:
             if key.startswith('b'):
-                print("An attribute starting with b")
+                # print("An attribute starting with b")
                 return True
         if not (hasattr(account, 'zip') or not hasattr(account, 'addr')):
-            print("Missing attribute zip or addr")
+            # print("Missing attribute zip or addr")
             return True
         if not hasattr(account, 'name'):
-            print("Missing attribute name")
+            # print("Missing attribute name")
             return True
         if not hasattr(account, 'id'):
-            print("Missing attribute id")
+            # print("Missing attribute id")
             return True
         if not hasattr(account, 'value'):
-            print("Missing attribute value")
+            # print("Missing attribute value")
             return True
         if not isinstance(account.name, str):
-            print("Account name is not a string")
+            # print("Account name is not a string")
             return True
         if not isinstance(account.id, int):
-            print("Account id is not a number")
+            # print("Account id is not a number")
             return True
         if not isinstance(account.value, (int, float)):
-            print("Account value is no a number")
+            # print("Account value is no a number")
             return True
         return False    
 
@@ -142,30 +142,76 @@ class Bank(object):
                 delattr(to_fix, 'extra2')
         return True
         
-if __name__ == "__main__":
-    bank = Bank()
-    bank.add(
-        Account(
-            'Jane',
-            zip='911-745',
-            value=1000.0,
-            ref='1044618427ff2782f0bbece0abd05f31'
-        )
-    )
-
-    jhon = Account(
-        'Jhon',
-        zip='911-745',
-        value=1000.0,
-        ref='1044618427ff2782f0bbece0abd05f31'
-    )
-
-    bank.add(jhon)
-
-    print("testing a valid transfer")
-    print(jhon.value)
-    print(bank.transfer("Jane", "Jhon", 500))
-    print(jhon.value)
+# if __name__ == "__main__":
     
-    print(bank.transfer("Jane", "Jhon", 1000))
-    print(jhon.value)
+#     bank = Bank()
+#     #1
+#     john = Account(
+#     'William John',
+#     zip='100-064',
+#     brother="heyhey",
+#     value=6460.0,
+#     ref='58ba2b9954cd278eda8a84147ca73c87',
+#     info=None,
+#     other='This is the vice president of the corporation',
+#     lol = "hihi"
+#     )
+    
+#     print("Account corrupted:", bank.is_corrupted(john))
+#     bank.add(john)
+#     # print(bank.fix_account(john))
+
+#     print("Account fixed:", bank.fix_account('William John'))
+    
+#     #2
+#     john = Account(
+#     'William John',
+#     zip='100-064',
+#     rother="heyhey",
+#     value=6460.0,
+#     ref='58ba2b9954cd278eda8a84147ca73c87',
+#     info=None,
+#     other='This is the vice president of the corporation',
+#     )
+
+#     print("Account corrupted:", bank.is_corrupted(john))
+    
+#     #3
+#     john = Account(
+#     'William John',
+#     zip='100-064',
+#     rother="heyhey",
+#     ref='58ba2b9954cd278eda8a84147ca73c87',
+#     info=None,
+#     other='This is the vice president of the corporation',
+#     lol = "lolilol"
+#     )
+#     print("Account corrupted:", bank.is_corrupted(john))
+#     print(john.__dict__)
+    
+#     #4
+#     bank.add(
+#     Account(
+#         'Jane',
+#         zip='911-745',
+#         value=1000.0,
+#         ref='1044618427ff2782f0bbece0abd05f31')
+#     )   
+
+#     jhon = Account(
+#         'Jhon',
+#         zip='911-745',
+#         value=1000.0,
+#         ref='1044618427ff2782f0bbece0abd05f31'
+#     )
+
+#     bank.add(jhon)
+
+#     print("testing a valid transfer")
+#     print(jhon.value)
+#     print(bank.transfer("Jane", "Jhon", 500))
+#     print(jhon.value)
+    
+#     #5
+#     print(bank.transfer("Jane", "Jhon", 1000))
+#     print(jhon.value)
