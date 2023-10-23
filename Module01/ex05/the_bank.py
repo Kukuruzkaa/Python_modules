@@ -61,7 +61,7 @@ class Bank(object):
             if self.is_corrupted(o_account) or self.is_corrupted(d_account):
                 return False
             if  amount > o_account.value:
-                print('not enough funds to make a transfer')
+                # print('not enough funds to make a transfer')
                 return False
             if origin != dest:
                 o_account.transfer(-amount)
@@ -73,32 +73,32 @@ class Bank(object):
     def is_corrupted(account):
         accnt = dir(account)
         if len(accnt) % 2 == 0:
-            # print("Account has en even number of attributes")
+            print("Account has en even number of attributes")
             return True
         for key in accnt:
             if key.startswith('b'):
-                # print("An attribute starting with b")
+                print("An attribute starting with b")
                 return True
         if not (hasattr(account, 'zip') or not hasattr(account, 'addr')):
-            # print("Missing attribute zip or addr")
+            print("Missing attribute zip or addr")
             return True
         if not hasattr(account, 'name'):
-            # print("Missing attribute name")
+            print("Missing attribute name")
             return True
         if not hasattr(account, 'id'):
-            # print("Missing attribute id")
+            print("Missing attribute id")
             return True
         if not hasattr(account, 'value'):
-            # print("Missing attribute value")
+            print("Missing attribute value")
             return True
         if not isinstance(account.name, str):
-            # print("Account name is not a string")
+            print("Account name is not a string")
             return True
         if not isinstance(account.id, int):
-            # print("Account id is not a number")
+            print("Account id is not a number")
             return True
         if not isinstance(account.value, (int, float)):
-            # print("Account value is no a number")
+            print("Account value is no a number")
             return True
         return False    
 
@@ -143,7 +143,6 @@ class Bank(object):
         return True
         
 if __name__ == "__main__":
-    
     bank = Bank()
     bank.add(
         Account(
@@ -165,7 +164,8 @@ if __name__ == "__main__":
 
     print("testing a valid transfer")
     print(jhon.value)
-    bank.transfer("Jane", "Jhon", 500)
+    print(bank.transfer("Jane", "Jhon", 500))
     print(jhon.value)
-    bank.transfer("Jane", "Jhon", 1000)
+    
+    print(bank.transfer("Jane", "Jhon", 1000))
     print(jhon.value)
